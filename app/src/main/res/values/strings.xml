@@ -8,4 +8,5 @@
     <string name="network_error">You have lost network connectivity. Please try again.</string>
     <string name="top_title">PopularMovies - Top Rated</string>
     <string name="popular_title">PopularMovies - Most Popular</string>
+    <string name="api_key_error">You forgot to update your API key</string>
 </resources>
