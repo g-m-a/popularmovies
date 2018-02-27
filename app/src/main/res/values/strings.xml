@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">PopularMovies</string>
+    <string name="release_date_label">Release Date</string>
+    <string name="popular">Show Most Popular</string>
+    <string name="top_rated">Show Top Rated</string>
+    <string name="details_title">Movie Details</string>
+    <string name="waiting">Waiting for network connectivity...</string>
+    <string name="network_error">You have lost network connectivity. Please try again.</string>
+    <string name="top_title">PopularMovies - Top Rated</string>
+    <string name="popular_title">PopularMovies - Most Popular</string>
+</resources>
