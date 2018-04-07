@@ -12,6 +12,8 @@ public class Config {
     public static final String POPULAR = "popular";
     public static final String TOP_RATED = "top_rated";
 
+    public static final String API_KEY = "14be5316dedca23b05b420a33222c921";
 
-    public static final String API_KEY = "";
+
+    public static final int COL_NUMBER = 4;
 }

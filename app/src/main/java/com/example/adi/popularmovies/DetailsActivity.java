@@ -27,6 +27,7 @@ public class DetailsActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
+        PopularMovie movie = (PopularMovie) intent.getSerializableExtra(PopularMovie.INTENT_EXTRA_LABEL);
 
         TextView title = (TextView) findViewById(R.id.title);
         TextView rating = (TextView) findViewById(R.id.rating);
@@ -35,13 +36,13 @@ public class DetailsActivity extends AppCompatActivity {
         TextView overview = (TextView) findViewById(R.id.overview);
 
 
-        String thumb_path = Config.URL_THUMB + Config.POSTER_SIZE + intent.getStringExtra("url");
+        String thumb_path = Config.URL_THUMB + Config.POSTER_SIZE + movie.poster_url;
         Picasso.with(this).load(thumb_path).into(poster);
 
-        title.setText(intent.getStringExtra("title"));
-        rating.setText(Float.toString(intent.getFloatExtra("rating", new Float(99.99))));
-        release_date.setText(intent.getStringExtra("release_date"));
-        overview.setText(intent.getStringExtra("overview"));
+        title.setText(movie.title);
+        rating.setText(Float.toString(movie.rating));
+        release_date.setText(movie.release_date);
+        overview.setText(movie.overview);
 
     }
 }

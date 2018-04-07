@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 
 public class Converter {
-    public static ArrayList<PopularMovie> jsonToMovieList(JSONObject jsonMovies){
+    public static PopularMovie[] jsonToMovieList(JSONObject jsonMovies){
         ArrayList<PopularMovie> movies = new ArrayList<>();
 
         try {
@@ -32,11 +32,12 @@ public class Converter {
                 }
             }
         } catch (JSONException e) {
-            return movies;
+
+            return movies.toArray(new PopularMovie[movies.size()]);
         } catch (NullPointerException e){
-            return movies;
+            return movies.toArray(new PopularMovie[movies.size()]);
         }
 
-        return movies;
+        return movies.toArray(new PopularMovie[movies.size()]);
     }
 }

@@ -12,7 +12,7 @@ import com.example.adi.popularmovies.utils.Config;
 import com.example.adi.popularmovies.utils.Network;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

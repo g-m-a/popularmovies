@@ -1,6 +1,7 @@
 package com.example.adi.popularmovies.utils;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.adi.popularmovies.PopularMovie;
 import com.example.adi.popularmovies.PopularMoviesAdapter;
@@ -35,7 +36,6 @@ public class AdapterUpdater extends AsyncTask<PopularMoviesAdapter, Void, JSONOb
     @Override
     protected void onPreExecute() {
         if (mclear){
-            mAdapter.clear();
             mAdapter.notifyDataSetChanged();
             mAdapter.current_page = 1;
         }
@@ -62,7 +62,7 @@ public class AdapterUpdater extends AsyncTask<PopularMoviesAdapter, Void, JSONOb
     @Override
     protected void onPostExecute(JSONObject jsonMovies) {
 
-        ArrayList<PopularMovie> moviesList = Converter.jsonToMovieList(jsonMovies);
+        PopularMovie[] moviesList = Converter.jsonToMovieList(jsonMovies);
 
         mAdapter.updateItems(moviesList);
     }

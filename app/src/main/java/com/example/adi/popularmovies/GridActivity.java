@@ -3,7 +3,10 @@ package com.example.adi.popularmovies;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +18,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.adi.popularmovies.utils.AdapterUpdater;
+import com.example.adi.popularmovies.utils.Config;
 import com.example.adi.popularmovies.utils.Network;
 
 import java.util.ArrayList;
@@ -31,33 +35,26 @@ public class GridActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        GridView grid = findViewById(R.id.movies_grid);
-
-        ArrayList<PopularMovie> popularMovieList = new ArrayList<>();
+        PopularMovie[] popularMovieList = new PopularMovie[0];
 
 
-        movies_adapter = new PopularMoviesAdapter(this, popularMovieList);
-        grid.setAdapter(movies_adapter);
+        final RecyclerView rv = (RecyclerView) findViewById(R.id.recyclerview);
 
-        ImageView loading = (ImageView) findViewById(R.id.loading);
-        Glide.with(this)
-                .asGif()
-                .load(R.drawable.loading)
-                .into(loading);
-
-
-        new AdapterUpdater(movies_adapter, false).execute();
-
-        grid.setOnScrollListener(new AbsListView.OnScrollListener() {
-
+        final GridLayoutManager layoutManager = new GridLayoutManager(this, Config.COL_NUMBER, RecyclerView.VERTICAL, false);
+        rv.setLayoutManager(layoutManager);
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(AbsListView absListView, int i) {
-
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
             }
 
             @Override
-            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
-                if(i+i1 >= i2){
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int visibleItemCount = layoutManager.getChildCount();
+                int totalItemCount = layoutManager.getItemCount();
+                int pastVisibleItems = layoutManager.findFirstVisibleItemPosition();
+                if ((pastVisibleItems + visibleItemCount >= totalItemCount - Config.COL_NUMBER) && !rv.canScrollVertically(1)) {
                     if (Network.hasNetwork(getApplicationContext())){
                         ((ImageView) findViewById(R.id.loading)).setVisibility(View.VISIBLE);
                         movies_adapter.current_page += 1;
@@ -70,21 +67,18 @@ public class GridActivity extends AppCompatActivity {
             }
         });
 
-        grid.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        movies_adapter = new PopularMoviesAdapter(this, popularMovieList);
 
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(view.getContext(), DetailsActivity.class);
-                PopularMovie movie = movies_adapter.getItem(i);
-                intent.putExtra("url", movie.poster_url);
-                intent.putExtra("title", movie.title);
-                intent.putExtra("rating", movie.rating);
-                intent.putExtra("overview", movie.overview);
-                intent.putExtra("release_date", movie.release_date);
-                startActivity(intent);
+        rv.setAdapter(movies_adapter);
 
-            }
-        });
+        ImageView loading = (ImageView) findViewById(R.id.loading);
+        Glide.with(this)
+                .asGif()
+                .load(R.drawable.loading)
+                .into(loading);
+
+
+        new AdapterUpdater(movies_adapter, false).execute();
 
     }
 
