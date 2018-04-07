@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 
 import com.example.adi.popularmovies.utils.Config;
+import com.example.adi.popularmovies.utils.MovieDB;
 import com.squareup.picasso.Picasso;
 
 public class DetailsActivity extends AppCompatActivity {
@@ -36,7 +37,7 @@ public class DetailsActivity extends AppCompatActivity {
         TextView overview = (TextView) findViewById(R.id.overview);
 
 
-        String thumb_path = Config.URL_THUMB + Config.POSTER_SIZE + movie.poster_url;
+        String thumb_path = MovieDB.getMovieImageURL(getApplicationContext(), movie.poster_url, false);
         Picasso.with(this).load(thumb_path).into(poster);
 
         title.setText(movie.title);

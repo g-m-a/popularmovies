@@ -6,9 +6,11 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.adi.popularmovies.utils.Config;
+import com.example.adi.popularmovies.utils.MovieDB;
 import com.example.adi.popularmovies.utils.Network;
 
 
@@ -18,11 +20,11 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Log.e("thestring", getResources().getString(R.string.page));
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        if (Config.API_KEY == ""){
+        if (MovieDB.API_KEY == ""){
             Toast.makeText(this, R.string.api_key_error, Toast.LENGTH_LONG).show();
 
             final AppCompatActivity activity = this;

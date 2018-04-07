@@ -1,5 +1,6 @@
 package com.example.adi.popularmovies.utils;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -24,13 +25,13 @@ public class AdapterUpdater extends AsyncTask<PopularMoviesAdapter, Void, JSONOb
     public boolean mclear;
     public String murl;
 
-    public AdapterUpdater(PopularMoviesAdapter adapter, boolean clear) {
+    public AdapterUpdater(PopularMoviesAdapter adapter, Context context, boolean clear) {
         mAdapter = adapter;
         mclear = clear;
         if (mAdapter.popular)
-            murl = Config.BASE_URL + Config.POPULAR + "?page=" + this.mAdapter.current_page + "&api_key=" + Config.API_KEY;
+            murl = MovieDB.getMoviesListURL(context, true, this.mAdapter.current_page);
         else
-            murl = Config.BASE_URL + Config.TOP_RATED + "?page=" + this.mAdapter.current_page + "&api_key=" + Config.API_KEY;
+            murl = MovieDB.getMoviesListURL(context, false, this.mAdapter.current_page);
     }
 
     @Override
@@ -64,6 +65,6 @@ public class AdapterUpdater extends AsyncTask<PopularMoviesAdapter, Void, JSONOb
 
         PopularMovie[] moviesList = Converter.jsonToMovieList(jsonMovies);
 
-        mAdapter.updateItems(moviesList);
+        mAdapter.updateItems(moviesList, mclear);
     }
 }

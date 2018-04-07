@@ -40,7 +40,7 @@ public class GridActivity extends AppCompatActivity {
 
         final RecyclerView rv = (RecyclerView) findViewById(R.id.recyclerview);
 
-        final GridLayoutManager layoutManager = new GridLayoutManager(this, Config.COL_NUMBER, RecyclerView.VERTICAL, false);
+        final GridLayoutManager layoutManager = new GridLayoutManager(this, Config.LIST_COL_NUMBER, RecyclerView.VERTICAL, false);
         rv.setLayoutManager(layoutManager);
         rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -54,11 +54,11 @@ public class GridActivity extends AppCompatActivity {
                 int visibleItemCount = layoutManager.getChildCount();
                 int totalItemCount = layoutManager.getItemCount();
                 int pastVisibleItems = layoutManager.findFirstVisibleItemPosition();
-                if ((pastVisibleItems + visibleItemCount >= totalItemCount - Config.COL_NUMBER) && !rv.canScrollVertically(1)) {
+                if ((pastVisibleItems + visibleItemCount >= totalItemCount - Config.LIST_COL_NUMBER) && !rv.canScrollVertically(1)) {
                     if (Network.hasNetwork(getApplicationContext())){
                         ((ImageView) findViewById(R.id.loading)).setVisibility(View.VISIBLE);
                         movies_adapter.current_page += 1;
-                        new AdapterUpdater(movies_adapter, false).execute();
+                        new AdapterUpdater(movies_adapter, getApplicationContext(), false).execute();
                     }
                     else{
                         Toast.makeText(getApplicationContext(), R.string.network_error, Toast.LENGTH_SHORT).show();
@@ -78,7 +78,7 @@ public class GridActivity extends AppCompatActivity {
                 .into(loading);
 
 
-        new AdapterUpdater(movies_adapter, false).execute();
+        new AdapterUpdater(movies_adapter, getApplicationContext(),false).execute();
 
     }
 
@@ -97,14 +97,14 @@ public class GridActivity extends AppCompatActivity {
                     item.setEnabled(false);
                     this.menu.findItem(R.id.top_rated_item).setEnabled(true);
                     movies_adapter.popular = true;
-                    new AdapterUpdater(movies_adapter, true).execute();
+                    new AdapterUpdater(movies_adapter, getApplicationContext(), true).execute();
                     getSupportActionBar().setTitle(R.string.popular_title);
                     return true;
                 case R.id.top_rated_item:
                     item.setEnabled(false);
                     this.menu.findItem(R.id.popular_item).setEnabled(true);
                     movies_adapter.popular = false;
-                    new AdapterUpdater(movies_adapter, true).execute();
+                    new AdapterUpdater(movies_adapter, getApplicationContext(), true).execute();
                     getSupportActionBar().setTitle(R.string.top_title);
                     return true;
                 default:

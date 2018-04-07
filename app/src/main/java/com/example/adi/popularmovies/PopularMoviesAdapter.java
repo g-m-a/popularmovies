@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import com.example.adi.popularmovies.utils.Config;
+import com.example.adi.popularmovies.utils.MovieDB;
 import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -50,7 +51,7 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
 
     @Override
     public void onBindViewHolder(PopularMoviesAdapter.ViewHolder holder, int position) {
-        String thumb_path = Config.URL_THUMB + Config.THUMB_SIZE + mData[position].poster_url.replace("\\/", "");
+        String thumb_path = MovieDB.getMovieImageURL(mInflater.getContext(),  mData[position].poster_url.replace("\\/", ""), true);
         Picasso.with(mInflater.getContext()).load(thumb_path).into(holder.mImageView);
         Log.i("yyyyy", "" + position);
     }
@@ -91,9 +92,15 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
     }
 
 
-    public void updateItems(PopularMovie[] movies){
+    public void updateItems(PopularMovie[] movies, boolean clear){
 
-        this.mData = (PopularMovie[]) ArrayUtils.addAll(this.mData, movies);
+        if (clear){
+            this.mData = movies;
+        }
+        else{
+            this.mData = (PopularMovie[]) ArrayUtils.addAll(this.mData, movies);
+        }
+
         this.notifyDataSetChanged();
 
         View root = ((Activity)mInflater.getContext()).getWindow().getDecorView().findViewById(R.id.main_view);
