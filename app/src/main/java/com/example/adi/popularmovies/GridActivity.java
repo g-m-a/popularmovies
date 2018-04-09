@@ -1,18 +1,13 @@
 package com.example.adi.popularmovies;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -21,7 +16,6 @@ import com.example.adi.popularmovies.utils.AdapterUpdater;
 import com.example.adi.popularmovies.utils.Config;
 import com.example.adi.popularmovies.utils.Network;
 
-import java.util.ArrayList;
 
 public class GridActivity extends AppCompatActivity {
     PopularMoviesAdapter movies_adapter = null;

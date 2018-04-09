@@ -2,7 +2,6 @@ package com.example.adi.popularmovies.utils;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.example.adi.popularmovies.PopularMovie;
 import com.example.adi.popularmovies.PopularMoviesAdapter;
@@ -11,8 +10,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 
 /**
  * Created by adi on 26.02.2018.

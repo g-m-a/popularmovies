@@ -5,25 +5,17 @@ import android.content.Context;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
-import com.example.adi.popularmovies.utils.Config;
+
 import com.example.adi.popularmovies.utils.MovieDB;
 import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.ArrayUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -53,7 +45,6 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
     public void onBindViewHolder(PopularMoviesAdapter.ViewHolder holder, int position) {
         String thumb_path = MovieDB.getMovieImageURL(mInflater.getContext(),  mData[position].poster_url.replace("\\/", ""), true);
         Picasso.with(mInflater.getContext()).load(thumb_path).into(holder.mImageView);
-        Log.i("yyyyy", "" + position);
     }
 
     @Override
@@ -81,7 +72,6 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
     }
 
     public void onItemClick(View v, int position){
-//        Log.i("zzzzz", "click @ " + position);
         Intent intent = new Intent(v.getContext(), DetailsActivity.class);
         PopularMovie movie = mData[position];
         Bundle mBundle = new Bundle();
