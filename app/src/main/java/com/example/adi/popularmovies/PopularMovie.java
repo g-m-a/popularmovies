@@ -17,13 +17,15 @@ public class PopularMovie implements Serializable{
     String overview;
     Float rating;
     String release_date;
+    String ID;
 
-    public PopularMovie(String title, String poster_url, String overview, Float rating, String release_date){
+    public PopularMovie(String title, String poster_url, String overview, Float rating, String release_date, String ID){
         this.title = title;
         this.poster_url = poster_url;
         this.overview = overview;
         this.rating = rating;
         this.release_date = release_date;
+        this.ID = ID;
     }
 
 

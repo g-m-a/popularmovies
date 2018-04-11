@@ -1,5 +1,6 @@
 package com.example.adi.popularmovies;
 
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,7 +15,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.adi.popularmovies.utils.AdapterUpdater;
 import com.example.adi.popularmovies.utils.Config;
+import com.example.adi.popularmovies.utils.ItemSpacing;
 import com.example.adi.popularmovies.utils.Network;
+
+import java.io.Serializable;
 
 
 public class GridActivity extends AppCompatActivity {
@@ -35,7 +39,14 @@ public class GridActivity extends AppCompatActivity {
         final RecyclerView rv = (RecyclerView) findViewById(R.id.recyclerview);
 
         final GridLayoutManager layoutManager = new GridLayoutManager(this, Config.LIST_COL_NUMBER, RecyclerView.VERTICAL, false);
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+          layoutManager.setSpanCount(Config.LIST_COL_NUMBER + 1);
+        }
+
         rv.setLayoutManager(layoutManager);
+        rv.addItemDecoration(new ItemSpacing(30));
+
         rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -72,8 +83,22 @@ public class GridActivity extends AppCompatActivity {
                 .into(loading);
 
 
-        new AdapterUpdater(movies_adapter, getApplicationContext(),false).execute();
+        if (movies_adapter.mData.length == 0)
+            new AdapterUpdater(movies_adapter, getApplicationContext(),false).execute();
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("movies", movies_adapter.mData);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        movies_adapter.mData = (PopularMovie[]) savedInstanceState.getSerializable("movies");
     }
 
     @Override

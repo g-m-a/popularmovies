@@ -24,11 +24,13 @@ public class Converter {
                 for (int i=0; i<array.length(); i++){
                     JSONObject movie = array.getJSONObject(i);
 
-                    movies.add(new PopularMovie(movie.getString("title"),
-                            movie.getString("poster_path"),
-                            movie.getString("overview"),
-                            new Double(movie.getDouble("vote_average")).floatValue(),
-                            movie.getString("release_date")));
+                    movies.add(new PopularMovie(
+                            movie.getString(MovieDB.TITLE_JSON_KEY),
+                            movie.getString(MovieDB.POSTER_JSON_KEY),
+                            movie.getString(MovieDB.OVERVIEW_JSON_KEY),
+                            new Double(movie.getDouble(MovieDB.RATING_JSON_KEY)).floatValue(),
+                            movie.getString(MovieDB.RELEASE_JSON_KEY),
+                            movie.getString(MovieDB.ID_JSON_KEY)));
                 }
             }
         } catch (JSONException e) {

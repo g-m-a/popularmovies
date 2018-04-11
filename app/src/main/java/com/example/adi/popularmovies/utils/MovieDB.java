@@ -5,7 +5,14 @@ import android.content.Context;
 import com.example.adi.popularmovies.R;
 
 public class MovieDB {
-    public static final String API_KEY = "<REPLACE HERE>";
+    public static final String API_KEY = "<YOUR API KEY HERE>";
+
+    public static final String TITLE_JSON_KEY = "title";
+    public static final String POSTER_JSON_KEY = "poster_path";
+    public static final String OVERVIEW_JSON_KEY = "overview";
+    public static final String RATING_JSON_KEY = "vote_average";
+    public static final String RELEASE_JSON_KEY = "release_date";
+    public static final String ID_JSON_KEY = "id";
 
     public static String getMoviesListURL(Context context, boolean popular, int page){
         String urlFormat = context.getResources().getString(R.string.movie_list_url);
@@ -50,6 +57,17 @@ public class MovieDB {
 
 
         return String.format(urlFormat, baseUrl, movie_id, videos_part, api_key);
+    }
+
+
+    public static String getMovieReviews(Context context, String movie_id){
+        String urlFormat = context.getResources().getString(R.string.movie_reviews_url);
+        String baseUrl = context.getResources().getString(R.string.base_url);
+
+        String reviews_part = context.getResources().getString(R.string.reviews);
+        String api_key = String.format(context.getResources().getString(R.string.key), MovieDB.API_KEY);
+
+        return String.format(urlFormat, baseUrl, movie_id, reviews_part, api_key);
     }
 
 
