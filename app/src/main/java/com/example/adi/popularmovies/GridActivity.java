@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.adi.popularmovies.utils.AdapterUpdater;
 import com.example.adi.popularmovies.utils.Config;
 import com.example.adi.popularmovies.utils.ItemSpacing;
+import com.example.adi.popularmovies.utils.MovieDB;
 import com.example.adi.popularmovies.utils.Network;
 
 import java.io.Serializable;
@@ -91,7 +92,9 @@ public class GridActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable("movies", movies_adapter.mData);
+        outState.putSerializable(MovieDB.INSTANCE_MOVIES_KEY, movies_adapter.mData);
+        outState.putInt(MovieDB.INSTANCE_LIST_KEY, movies_adapter.list_type);
+        outState.putInt(MovieDB.INSTANCE_PAGE_KEY, movies_adapter.current_page);
     }
 
     @Override
@@ -99,6 +102,9 @@ public class GridActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
 
         movies_adapter.mData = (PopularMovie[]) savedInstanceState.getSerializable("movies");
+        movies_adapter.list_type = savedInstanceState.getInt(MovieDB.INSTANCE_LIST_KEY);
+        movies_adapter.current_page = savedInstanceState.getInt(MovieDB.INSTANCE_PAGE_KEY);
+
     }
 
     @Override
@@ -115,15 +121,22 @@ public class GridActivity extends AppCompatActivity {
                 case R.id.popular_item:
                     item.setEnabled(false);
                     this.menu.findItem(R.id.top_rated_item).setEnabled(true);
-                    movies_adapter.popular = true;
+                    movies_adapter.list_type = 1;
                     new AdapterUpdater(movies_adapter, getApplicationContext(), true).execute();
                     getSupportActionBar().setTitle(R.string.popular_title);
                     return true;
                 case R.id.top_rated_item:
                     item.setEnabled(false);
                     this.menu.findItem(R.id.popular_item).setEnabled(true);
-                    movies_adapter.popular = false;
+                    movies_adapter.list_type = 2;
                     new AdapterUpdater(movies_adapter, getApplicationContext(), true).execute();
+                    getSupportActionBar().setTitle(R.string.top_title);
+                    return true;
+                case R.id.favorites_item:
+                    item.setEnabled(false);
+                    this.menu.findItem(R.id.favorites_item).setEnabled(true);
+                    movies_adapter.list_type = 3;
+//                    new AdapterUpdater(movies_adapter, getApplicationContext(), true).execute();
                     getSupportActionBar().setTitle(R.string.top_title);
                     return true;
                 default:

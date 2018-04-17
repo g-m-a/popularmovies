@@ -14,6 +14,10 @@ public class MovieDB {
     public static final String RELEASE_JSON_KEY = "release_date";
     public static final String ID_JSON_KEY = "id";
 
+    public static final String INSTANCE_MOVIES_KEY = "movies";
+    public static final String INSTANCE_LIST_KEY = "list_type";
+    public static final String INSTANCE_PAGE_KEY = "page";
+
     public static String getMoviesListURL(Context context, boolean popular, int page){
         String urlFormat = context.getResources().getString(R.string.movie_list_url);
         String baseUrl = context.getResources().getString(R.string.base_url);

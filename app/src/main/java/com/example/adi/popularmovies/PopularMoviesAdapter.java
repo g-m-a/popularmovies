@@ -26,7 +26,8 @@ import org.apache.commons.lang3.ArrayUtils;
 
 public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdapter.ViewHolder> {
     public int current_page;
-    public boolean popular;
+//    public boolean popular;
+    public int list_type;
     public PopularMovie[] mData;
     private LayoutInflater mInflater;
 
@@ -34,7 +35,7 @@ public class PopularMoviesAdapter extends RecyclerView.Adapter<PopularMoviesAdap
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.current_page = 1;
-        this.popular = true;
+        this.list_type = 1;
     }
 
     @Override

@@ -5,6 +5,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,8 +29,26 @@ public class DetailsActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
+
         Intent intent = getIntent();
         PopularMovie movie = (PopularMovie) intent.getSerializableExtra(PopularMovie.INTENT_EXTRA_LABEL);
+
+        ImageView favButton = (ImageView) findViewById(R.id.fav);
+
+        if (true)
+            favButton.setImageResource(R.drawable.fav_on);
+        else
+            favButton.setImageResource(R.drawable.fav_off);
+
+
+        favButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("movies", "toggle fav");
+            }
+        });
+
+
 
         TextView title = (TextView) findViewById(R.id.title);
         TextView rating = (TextView) findViewById(R.id.rating);

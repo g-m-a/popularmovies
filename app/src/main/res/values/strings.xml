@@ -26,5 +26,8 @@
     <string name="movie_image_url">%1$s%2$s%3$s</string>
     <string name="movie_videos_url">%1$s%2$s/%3$s?%4$s</string>
     <string name="movie_reviews_url">%1$s%2$s/%3$s?%4$s</string>
+    <string name="label_trailer">Watch Trailer</string>
+    <string name="reviews_label">Read reviews ></string>
+    <string name="favorites">Show Favorites</string>
 
 </resources>
