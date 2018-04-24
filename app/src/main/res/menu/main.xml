@@ -14,4 +14,9 @@
         app:showAsAction="never"
         android:id="@+id/top_rated_item"
     />
+    <item
+        android:title="@string/favorites"
+        app:showAsAction="ifRoom"
+        android:id="@+id/favorites_item"
+        />
 </menu>
